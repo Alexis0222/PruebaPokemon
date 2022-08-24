@@ -1,0 +1,35 @@
+<body>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <img
+        src="../../../assets/pokeball.png"
+        width="70"
+        height="40"
+        (click)="(home)"
+      />
+      <div class="texto">Pokedex</div>
+
+      <pagination-controls (pageChange)="pages = $event"></pagination-controls>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="pokemon-grid ">
+    <div
+      class="box"
+      *ngFor="
+        let pokemon of pokemons
+          | paginate: { itemsPerPage: 12, currentPage: pages }
+      "
+    >
+      <div><img [src]="pokemon.sprites.front_default" alt="pokemon" /></div>
+      <div class="info">
+        <h1>{{ pokemon.name }}</h1>
+        <h2># {{ pokemon.id }}</h2>
+        <div *ngIf="pokemon.type">{{ pokemon.types[0].type.name }}.</div>
+        <p>Tipo principal: {{ pokemon.types[0].type.name }}</p>
+        <p>Altura: {{ pokemon.height }} m</p>
+        <p>Peso: {{ pokemon.weight }} kg</p>
+      </div>
+    </div>
+  </div>
+</body>
